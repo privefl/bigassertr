@@ -77,7 +77,7 @@ assert_args <- function(f, args.name) {
     stop2("'%s' is not a function.", deparse(substitute(f)))
 
   if (!all(args.name %in% names(formals(f))))
-    stop2("'%s' should have argument%s named [%s].",
+    stop2("'%s' should have argument%s named '%s'.",
           deparse(substitute(f)),
           `if`(length(args.name) > 1, "s", ""),
           toString(args.name))
@@ -167,7 +167,7 @@ assert_class_or_null <- function(x, class)  {
 #' @rdname assert
 assert_all <- function(x, value = TRUE) {
   if (any(x != value))
-    stop2("At least one value of '%s' is different from '%s'",
+    stop2("At least one value of '%s' is different from '%s'.",
           deparse(substitute(x)), value)
 }
 
@@ -177,7 +177,7 @@ assert_all <- function(x, value = TRUE) {
 #' @rdname assert
 assert_dir <- function(dir.path) {
   if (!dir.exists(dir.path)) {
-    if (dir.create(dir.path)) {
+    if (suppressWarnings(dir.create(dir.path))) {
       message2("Creating directory \"%s\" which didn't exist..", dir.path)
     } else {
       stop2("Problem creating directory \"%s\". Recursive path?", dir.path)
@@ -208,8 +208,14 @@ assert_noexist <- function(file) {
 assert_nodots <- function() {
 
   list_dots <- eval(parse(text = "list(...)"), parent.frame())
-  if (!identical(list_dots, list()))
-    stop2("Argument '%s' not used.", names(list_dots[1]))
+  if (!identical(list_dots, list())) {
+    arg.name <- names(list_dots[1])
+    if (is.null(arg.name)) {
+      stop2("One passed argument is not used.")
+    } else {
+      stop2("Argument '%s' not used.", arg.name)
+    }
+  }
 }
 
 ################################################################################

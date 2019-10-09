@@ -1,0 +1,111 @@
+################################################################################
+
+context("test-assert")
+
+################################################################################
+
+test_that("assert_nona() works", {
+  expect_null(assert_nona(1:3))
+  expect_error(assert_nona(c(1:3, NA)), "You can't have missing values in ")
+})
+
+test_that("assert_args() works", {
+  expect_null(assert_args(assert_nona, "x"))
+  expect_error(assert_args(assert_nona, "x2"),
+               "'assert_nona' should have argument named 'x2'.")
+  expect_error(assert_args(assert_nona, c("x", "x2")),
+               "'assert_nona' should have arguments named 'x, x2.")
+})
+
+test_that("assert_lengths() works", {
+  expect_null(assert_lengths(1:3, 4:6, as.list(1:3)))
+  expect_error(assert_lengths(1:3, 4:5, as.list(1:3)),
+               "Objects are not of the same length.")
+  expect_error(assert_lengths(1:3, 4:6, as.list(1:2)),
+               "Objects are not of the same length.")
+})
+
+test_that("assert_int() works", {
+  expect_null(assert_int(c(1, 2, 3)))
+  expect_error(assert_int(c(1, 2, 3, 3.5)), " should contain only integers.")
+})
+
+test_that("assert_01() works", {
+  expect_null(assert_01(0:1))
+  expect_null(assert_01(c(0, 1, 0)))
+  expect_error(assert_01(c(0, 1, 0, 2)), " should be composed of 0s and 1s.")
+  expect_error(assert_01(c(TRUE, FALSE)), " should be composed of 0s and 1s.")
+})
+
+test_that("assert_multiple() works", {
+  expect_null(assert_multiple(1:3))
+  expect_warning(
+    assert_multiple(c(1, 2, 1, 2)),
+    "'c(1, 2, 1, 2)' is composed of only two different levels.", fixed = TRUE)
+  expect_error(
+    assert_multiple(rep(1, 3)),
+    "'rep(1, 3)' should be composed of different values.", fixed = TRUE)
+  x <- c(1, 2, 1, 2)
+  expect_warning(
+    assert_multiple(x),
+    "'x' is composed of only two different levels.", fixed = TRUE)
+  y <- rep(1, 3)
+  expect_error(
+    assert_multiple(y),
+    "'y' should be composed of different values.", fixed = TRUE)
+})
+
+test_that("assert_class() works", {
+  expect_null(assert_class(assert_nona, "function"))
+  expect_error(assert_class(assert_nona, "lm"),
+               "'assert_nona' is not of class 'lm'.")
+  x <- NULL
+  expect_error(assert_class(x, 'lm'), "'x' is not of class 'lm'.")
+  expect_null(assert_class_or_null(assert_nona, "function"))
+  expect_error(assert_class_or_null(assert_nona, "lm"),
+               "'assert_nona' is not 'NULL' or of class 'lm'.")
+  expect_null(assert_class_or_null(x, "lm"))
+})
+
+test_that("assert_all() works", {
+  expect_null(assert_all(1:3 > 0))
+  expect_null(assert_all(rep(5, 4), 5))
+  expect_error(
+    assert_all(rep(5, 4), 4),
+    "At least one value of 'rep(5, 4)' is different from '4'.", fixed = TRUE)
+})
+
+test_that("assert_dir() works", {
+  expect_null(assert_dir(tempdir()))
+  tmp <- tempfile()
+  expect_message(
+    assert_dir(tmp),
+    sprintf("Creating directory \"%s\" which didn't exist..", tmp))
+  expect_true(dir.exists(tmp))
+  tmp2 <- file.path(tmp, "too", "far")
+  expect_error(
+    assert_dir(tmp2),
+    sprintf("Problem creating directory \"%s\". Recursive path?", tmp2), fixed = TRUE)
+})
+
+test_that("assert_exist() works", {
+  tmp <- tempfile()
+  expect_error(assert_exist(tmp), sprintf("File '%s' doesn't exist.", tmp))
+  expect_null(assert_noexist(tmp))
+  write("test", tmp)
+  expect_null(assert_exist(tmp))
+  expect_error(assert_noexist(tmp), sprintf("File '%s' already exists.", tmp))
+})
+
+test_that("assert_nodots() works", {
+  test <- function(a = 1, ...) {
+    assert_nodots()
+    NULL
+  }
+  expect_null(test())
+  expect_null(test(1:2))
+  expect_error(test(1:2, 1:3), "One passed argument is not used.")
+  expect_error(test(b = 1:3), "Argument 'b' not used.")
+})
+
+################################################################################
