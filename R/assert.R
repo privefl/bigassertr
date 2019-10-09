@@ -22,6 +22,9 @@
 #' - `assert_exist()`: checks that file exists.
 #' - `assert_noexist()`: checks that file does not exist.
 #' - `assert_nodots()`: checks that `...` are not used in a function.
+#' - `assert_ext()`: checks that file has a particular extension.
+#' - `assert_type()`: checks that values are of a particular type.
+#' - `assert_sorted()`: checks that values are sorted.
 #'
 #' @param x Usually a vector.
 #' @param f A function.
@@ -32,6 +35,8 @@
 #' @param value Value to check.
 #' @param dir.path Directory to check.
 #' @param file File to check.
+#' @param ext Extension to check (without the dot at the beginning).
+#' @param type Type to check.
 #'
 #' @name assert
 #'
@@ -49,6 +54,9 @@
 #' assert_noexist(tmp <- tempfile())
 #' write("test", tmp)
 #' assert_exist(tmp)
+#' assert_ext("test.txt", "txt")
+#' assert_type(1:3, "integer")
+#' assert_sorted(1:3)
 #'
 #' test <- function(...) {
 #'   assert_nodots()
@@ -216,6 +224,33 @@ assert_nodots <- function() {
       stop2("Argument '%s' not used.", arg.name)
     }
   }
+}
+
+################################################################################
+
+#' @export
+#' @rdname assert
+assert_ext <- function(file, ext) {
+  if (!grepl(sprintf("\\.%s$", ext), file))
+    stop2("Extension of '%s' must be '.%s'.", file, ext)
+}
+
+################################################################################
+
+#' @export
+#' @rdname assert
+assert_type <- function(x, type)  {
+  if (typeof(x) != type)
+    stop2("'%s' is not of type '%s'.", deparse(substitute(x)), type)
+}
+
+################################################################################
+
+#' @export
+#' @rdname assert
+assert_sorted <- function(x, strict = FALSE)  {
+  if (is.unsorted(x, na.rm = TRUE, strictly = strict))
+    stop2("'%s' is not sorted.", deparse(substitute(x)))
 }
 
 ################################################################################

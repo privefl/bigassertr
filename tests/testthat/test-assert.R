@@ -129,4 +129,24 @@ test_that("assert_nodots() works", {
   expect_error(test(b = 1:3), "Argument 'b' not used.")
 })
 
+test_that("assert_ext() works", {
+  expect_null(assert_ext("test.txt", "txt"))
+  expect_error(assert_ext("test.txt", "csv"),
+               "Extension of 'test.txt' must be '.csv'.")
+})
+
+test_that("assert_type() works", {
+  expect_null(assert_type(1:3, "integer"))
+  expect_error(assert_type(1:3, "double"), "'1:3' is not of type 'double'.")
+})
+
+test_that("assert_sorted() works", {
+  expect_null(assert_sorted(NULL))
+  expect_null(assert_sorted(1:3))
+  expect_null(assert_sorted(c(1:3, NA)))
+  expect_null(assert_sorted(c(1:3, 3)))
+  expect_error(assert_sorted(c(1:3, 3), strict = TRUE),
+               "'c(1:3, 3)' is not sorted.", fixed = TRUE)
+})
+
 ################################################################################

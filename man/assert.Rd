@@ -16,6 +16,9 @@
 \alias{assert_exist}
 \alias{assert_noexist}
 \alias{assert_nodots}
+\alias{assert_ext}
+\alias{assert_type}
+\alias{assert_sorted}
 \title{Assertions}
 \usage{
 assert_nona(x)
@@ -45,6 +48,12 @@ assert_exist(file)
 assert_noexist(file)
 
 assert_nodots()
+
+assert_ext(file, ext)
+
+assert_type(x, type)
+
+assert_sorted(x, strict = FALSE)
 }
 \arguments{
 \item{x}{Usually a vector.}
@@ -64,6 +73,10 @@ assert_nodots()
 \item{dir.path}{Directory to check.}
 
 \item{file}{File to check.}
+
+\item{ext}{Extension to check (without the dot at the beginning).}
+
+\item{type}{Type to check.}
 }
 \description{
 \itemize{
@@ -87,6 +100,9 @@ beware precision errors (e.g. \code{(0.1 + 0.2) != 0.3}).
 \item \code{assert_exist()}: checks that file exists.
 \item \code{assert_noexist()}: checks that file does not exist.
 \item \code{assert_nodots()}: checks that \code{...} are not used in a function.
+\item \code{assert_ext()}: checks that file has a particular extension.
+\item \code{assert_type()}: checks that values are of a particular type.
+\item \code{assert_sorted()}: checks that values are sorted.
 }
 }
 \examples{
@@ -103,6 +119,9 @@ assert_dir(tempdir())
 assert_noexist(tmp <- tempfile())
 write("test", tmp)
 assert_exist(tmp)
+assert_ext("test.txt", "txt")
+assert_type(1:3, "integer")
+assert_sorted(1:3)
 
 test <- function(...) {
   assert_nodots()
