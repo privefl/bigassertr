@@ -15,6 +15,9 @@ test_that("assert_args() works", {
                "'assert_nona' should have argument named 'x2'.")
   expect_error(assert_args(assert_nona, c("x", "x2")),
                "'assert_nona' should have arguments named 'x, x2.")
+
+  assert_args(cbind, '...')
+  expect_error(assert_args(cbind()), "'cbind()' is not a function.", fixed = TRUE)
 })
 
 test_that("assert_lengths() works", {
@@ -23,11 +26,26 @@ test_that("assert_lengths() works", {
                "Objects are not of the same length.")
   expect_error(assert_lengths(1:3, 4:6, as.list(1:2)),
                "Objects are not of the same length.")
+  expect_error(assert_lengths(as.list(1:3)),
+               "You should check the lengths of at least two elements.")
 })
 
 test_that("assert_int() works", {
+  expect_null(assert_int(NULL))
   expect_null(assert_int(c(1, 2, 3)))
+  expect_null(assert_int(c(1, 2, 3, NA)))
   expect_error(assert_int(c(1, 2, 3, 3.5)), " should contain only integers.")
+  expect_error(assert_int(letters), "'letters' should be numeric.")
+})
+
+test_that("assert_pos() works", {
+  expect_null(assert_pos(NULL))
+  expect_null(assert_pos(c(1, 2, 3)))
+  expect_error(assert_pos(c(NA, 1, 2, 3)), " should have only positive values.")
+  expect_error(assert_pos(c(0, 1, 2, 3)), " should have only positive values.")
+  expect_null(assert_pos(c(0, 1, 2, 3), strict = FALSE))
+  expect_error(assert_int(c(1, 2, 3, 3.5)), " should contain only integers.")
+  expect_error(assert_pos(letters), "'letters' should be numeric.")
 })
 
 test_that("assert_01() works", {

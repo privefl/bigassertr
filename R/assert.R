@@ -104,10 +104,8 @@ assert_lengths <- function(...) {
 assert_int <- function(x) {
   if (!is.null(x) && !is.integer(x)) {
     var_name <- deparse(substitute(x))
-    no_int <- tryCatch(which(x != trunc(x)), error = function(e) {
-      stop2("'%s' should be numeric.", var_name)
-    })
-    if (length(no_int) > 0)
+    if (!is.numeric(x)) stop2("'%s' should be numeric.", var_name)
+    if (any(x != trunc(x), na.rm = TRUE))
       stop2("'%s' should contain only integers.", var_name)
   }
 }
@@ -117,9 +115,11 @@ assert_int <- function(x) {
 #' @export
 #' @rdname assert
 assert_pos <- function(x, strict = TRUE) {
+  var_name <- deparse(substitute(x))
+  if (!is.null(x) && !is.numeric(x)) stop2("'%s' should be numeric.", var_name)
   all_pos <- isTRUE(all(`if`(strict, x > 0, x >= 0)))
   if (!all_pos)
-    stop2("'%s' should have only positive values.", deparse(substitute(x)))
+    stop2("'%s' should have only positive values.", var_name)
 }
 
 ################################################################################
