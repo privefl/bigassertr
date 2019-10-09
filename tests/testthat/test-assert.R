@@ -80,21 +80,24 @@ test_that("assert_dir() works", {
   tmp <- tempfile()
   expect_message(
     assert_dir(tmp),
-    sprintf("Creating directory \"%s\" which didn't exist..", tmp))
+    sprintf("Creating directory \"%s\" which didn't exist..", tmp), fixed = TRUE)
   expect_true(dir.exists(tmp))
   tmp2 <- file.path(tmp, "too", "far")
   expect_error(
     assert_dir(tmp2),
-    sprintf("Problem creating directory \"%s\". Recursive path?", tmp2), fixed = TRUE)
+    sprintf("Problem creating directory \"%s\". Recursive path?", tmp2),
+    fixed = TRUE)
 })
 
 test_that("assert_exist() works", {
   tmp <- tempfile()
-  expect_error(assert_exist(tmp), sprintf("File '%s' doesn't exist.", tmp))
+  expect_error(assert_exist(tmp), sprintf("File '%s' doesn't exist.", tmp),
+               fixed = TRUE)
   expect_null(assert_noexist(tmp))
   write("test", tmp)
   expect_null(assert_exist(tmp))
-  expect_error(assert_noexist(tmp), sprintf("File '%s' already exists.", tmp))
+  expect_error(assert_noexist(tmp), sprintf("File '%s' already exists.", tmp),
+               fixed = TRUE)
 })
 
 test_that("assert_nodots() works", {
