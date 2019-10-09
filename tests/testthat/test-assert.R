@@ -23,9 +23,9 @@ test_that("assert_args() works", {
 test_that("assert_lengths() works", {
   expect_null(assert_lengths(1:3, 4:6, as.list(1:3)))
   expect_error(assert_lengths(1:3, 4:5, as.list(1:3)),
-               "Objects are not of the same length.")
+               "Incompatibility between dimensions.")
   expect_error(assert_lengths(1:3, 4:6, as.list(1:2)),
-               "Objects are not of the same length.")
+               "Incompatibility between dimensions.")
   expect_error(assert_lengths(as.list(1:3)),
                "You should check the lengths of at least two elements.")
 })
