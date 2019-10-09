@@ -16,14 +16,14 @@ warning2(...)
 stop2(...)
 }
 \arguments{
-\item{...}{Arguments passed on to \code{sprintf}
-\describe{
-  \item{}{}
-}}
+\item{...}{Arguments passed on to \link[base:sprintf]{base::sprintf}.}
 }
 \description{
 Easy messages
 }
 \examples{
 printf("My name is \%s.", "Florian")
+}
+\seealso{
+\link[base:sprintf]{base::sprintf}
 }

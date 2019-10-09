@@ -2,9 +2,11 @@
 
 #' Easy messages
 #'
-#' @inheritDotParams sprintf
+#' @param ... Arguments passed on to [base::sprintf].
 #'
 #' @export
+#'
+#' @seealso [base::sprintf]
 #'
 #' @examples
 #' printf("My name is %s.", "Florian")
