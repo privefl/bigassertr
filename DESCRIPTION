@@ -1,13 +1,16 @@
 Package: bigassertr
-Title: Assertions
-Version: 0.1.0
-Date: 2019-10-09
+Title: Assertion and Message Functions
+Version: 0.1.1
+Date: 2019-10-12
 Authors@R: 
     person(given = "Florian",
            family = "Privé",
            role = c("aut", "cre"),
            email = "florian.prive.21@gmail.com")
-Description: Assertion and message functions.
+Description:
+    Enhanced message functions (cat() / message() / warning() / error()) 
+    using wrappers around sprintf(). Also, multiple assertion functions 
+    (e.g. to check class, length, values, files, arguments, etc.).
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

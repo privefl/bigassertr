@@ -4,9 +4,11 @@
 \name{bigassertr-package}
 \alias{bigassertr}
 \alias{bigassertr-package}
-\title{bigassertr: Assertions}
+\title{bigassertr: Assertion and Message Functions}
 \description{
-Assertion and message functions.
+Enhanced message functions (cat() / message() / warning() / error()) 
+    using wrappers around sprintf(). Also, multiple assertion functions 
+    (e.g. to check class, length, values, files, arguments, etc.).
 }
 \author{
 \strong{Maintainer}: Florian Privé \email{florian.prive.21@gmail.com}

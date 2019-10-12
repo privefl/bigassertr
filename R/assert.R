@@ -6,6 +6,7 @@
 #' - `assert_args()`: checks that `f` is a function and that it has arguments
 #'   called `args.name`.
 #' - `assert_lengths()`: checks that objects have the same length.
+#' - `assert_one_int()`: checks that object is integer-ish of length 1.
 #' - `assert_int()`: checks that values are integer-ish (or `NULL`).
 #' - `assert_pos()`: checks that values are (strictly) positive.
 #' - `assert_01()`: checks that values are either `0` or `1`.
@@ -111,10 +112,19 @@ assert_lengths <- function(...) {
 #' @rdname assert
 assert_int <- function(x) {
   if (!is.null(x) && !is.integer(x)) {
-    var_name <- deparse(substitute(x))
-    if (!is.numeric(x)) stop2("'%s' should be numeric.", var_name)
-    if (any(x != trunc(x), na.rm = TRUE))
-      stop2("'%s' should contain only integers.", var_name)
+    if (!is.numeric(x) || any(x != trunc(x), na.rm = TRUE))
+      stop2("'%s' should contain only integers.", deparse(substitute(x)))
+  }
+}
+
+#' @export
+#' @rdname assert
+assert_one_int <- function(x) {
+  var_name <- deparse(substitute(x))
+  if (length(x) != 1) stop2("'%s' should be of length 1.", var_name)
+  if (!is.integer(x)) {
+    if (!is.numeric(x) || !isTRUE(x == trunc(x)))
+      stop2("'%s' should be an integer.", var_name)
   }
 }
 

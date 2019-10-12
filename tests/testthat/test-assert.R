@@ -35,7 +35,16 @@ test_that("assert_int() works", {
   expect_null(assert_int(c(1, 2, 3)))
   expect_null(assert_int(c(1, 2, 3, NA)))
   expect_error(assert_int(c(1, 2, 3, 3.5)), " should contain only integers.")
-  expect_error(assert_int(letters), "'letters' should be numeric.")
+  expect_error(assert_int(letters), "'letters' should contain only integers.")
+})
+
+test_that("assert_one_int() works", {
+  expect_error(assert_one_int(NULL), "'NULL' should be of length 1.")
+  expect_error(assert_one_int(c(1, 2, 3)), " should be of length 1.")
+  expect_null(assert_one_int(1L))
+  expect_null(assert_one_int(1))
+  expect_error(assert_one_int(NA), " should be an integer.")
+  expect_error(assert_one_int(1.5), " should be an integer.")
 })
 
 test_that("assert_pos() works", {
