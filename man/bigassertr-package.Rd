@@ -10,6 +10,14 @@ Enhanced message functions (cat() / message() / warning() / error())
     using wrappers around sprintf(). Also, multiple assertion functions 
     (e.g. to check class, length, values, files, arguments, etc.).
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/privefl/bigassertr}
+  \item Report bugs at \url{https://github.com/privefl/bigassertr/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Florian Privé \email{florian.prive.21@gmail.com}
 

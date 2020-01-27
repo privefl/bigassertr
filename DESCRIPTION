@@ -1,7 +1,7 @@
 Package: bigassertr
 Title: Assertion and Message Functions
-Version: 0.1.1
-Date: 2019-10-12
+Version: 0.1.2
+Date: 2020-01-27
 Authors@R: 
     person(given = "Florian",
            family = "Privé",
@@ -15,7 +15,9 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.0
+RoxygenNote: 7.0.2
 Suggests: 
     testthat,
     covr
+URL: https://github.com/privefl/bigassertr
+BugReports: https://github.com/privefl/bigassertr/issues
