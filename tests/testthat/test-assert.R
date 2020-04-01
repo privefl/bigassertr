@@ -158,4 +158,10 @@ test_that("assert_sorted() works", {
                "'c(1:3, 3)' is not sorted.", fixed = TRUE)
 })
 
+test_that("assert_package() works", {
+  expect_null(assert_package("stats"))
+  expect_error(assert_package("DOESNOTEXIST"),
+               "Please install package 'DOESNOTEXIST'.", fixed = TRUE)
+})
+
 ################################################################################
