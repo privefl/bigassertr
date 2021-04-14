@@ -6,6 +6,7 @@
 #' - `assert_args()`: checks that `f` is a function and that it has arguments
 #'   called `args.name`.
 #' - `assert_lengths()`: checks that objects have the same length.
+#' - `assert_one_bool()`: checks whether either `TRUE` or `FALSE`.
 #' - `assert_one_int()`: checks that object is integer-ish of length 1.
 #' - `assert_int()`: checks that values are integer-ish (or `NULL`).
 #' - `assert_pos()`: checks that values are (strictly) positive.
@@ -129,6 +130,16 @@ assert_one_int <- function(x) {
     if (!is.numeric(x) || !isTRUE(x == trunc(x)))
       stop2("'%s' should be an integer.", var_name)
   }
+}
+
+################################################################################
+
+#' @export
+#' @rdname assert
+assert_one_bool <- function(x) {
+  var_name <- deparse(substitute(x))
+  if (!(is.logical(x) && length(x) == 1 && !is.na(x)))
+    stop2("'%s' should be either 'TRUE' or 'FALSE'.", var_name)
 }
 
 ################################################################################

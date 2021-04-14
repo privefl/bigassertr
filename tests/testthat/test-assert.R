@@ -47,6 +47,21 @@ test_that("assert_one_int() works", {
   expect_error(assert_one_int(1.5), " should be an integer.")
 })
 
+test_that("assert_one_bool() works", {
+  expect_error(assert_one_bool(NULL),
+               "'NULL' should be either 'TRUE' or 'FALSE'.")
+  expect_error(assert_one_bool(NA),
+               "'NA' should be either 'TRUE' or 'FALSE'.")
+  expect_error(assert_one_bool(1),
+               "'1' should be either 'TRUE' or 'FALSE'.")
+  x <- 1L
+  expect_error(assert_one_bool(x),
+               "'x' should be either 'TRUE' or 'FALSE'.")
+  expect_null(assert_one_bool(TRUE))
+  expect_null(assert_one_bool(FALSE))
+  expect_null(assert_one_bool(1 != 0))
+})
+
 test_that("assert_pos() works", {
   expect_null(assert_pos(NULL))
   expect_null(assert_pos(c(1, 2, 3)))

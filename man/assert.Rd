@@ -7,6 +7,7 @@
 \alias{assert_lengths}
 \alias{assert_int}
 \alias{assert_one_int}
+\alias{assert_one_bool}
 \alias{assert_pos}
 \alias{assert_01}
 \alias{assert_multiple}
@@ -32,6 +33,8 @@ assert_lengths(...)
 assert_int(x)
 
 assert_one_int(x)
+
+assert_one_bool(x)
 
 assert_pos(x, strict = TRUE)
 
@@ -92,6 +95,7 @@ assert_package(pkg)
 \item \code{assert_args()}: checks that \code{f} is a function and that it has arguments
 called \code{args.name}.
 \item \code{assert_lengths()}: checks that objects have the same length.
+\item \code{assert_one_bool()}: checks whether either \code{TRUE} or \code{FALSE}.
 \item \code{assert_one_int()}: checks that object is integer-ish of length 1.
 \item \code{assert_int()}: checks that values are integer-ish (or \code{NULL}).
 \item \code{assert_pos()}: checks that values are (strictly) positive.
