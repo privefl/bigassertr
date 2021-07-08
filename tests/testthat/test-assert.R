@@ -22,12 +22,16 @@ test_that("assert_args() works", {
 
 test_that("assert_lengths() works", {
   expect_null(assert_lengths(1:3, 4:6, as.list(1:3)))
-  expect_error(assert_lengths(1:3, 4:5, as.list(1:3)),
+  expect_error(assert_lengths(1:3, 4:5, as.list(1:3)), fixed = TRUE,
                "Incompatibility between dimensions.")
-  expect_error(assert_lengths(1:3, 4:6, as.list(1:2)),
+  expect_error(assert_lengths(1:3, 4:5, as.list(1:3)), fixed = TRUE,
+               "'1:3' and '4:5' should have the same length.")
+  expect_error(assert_lengths(1:3, 4:6, as.list(1:2)), fixed = TRUE,
                "Incompatibility between dimensions.")
-  expect_error(assert_lengths(as.list(1:3)),
-               "You should check the lengths of at least two elements.")
+  expect_error(assert_lengths(1:3, 4:6, as.list(1:2)), fixed = TRUE,
+               "'4:6' and 'as.list(1:2)' should have the same length.")
+  expect_error(assert_lengths(as.list(1:3)), fixed = TRUE,
+               "You should check the lengths of at least two variables.")
 })
 
 test_that("assert_int() works", {

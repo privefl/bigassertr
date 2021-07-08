@@ -103,10 +103,15 @@ assert_args <- function(f, args.name) {
 assert_lengths <- function(...) {
   lengths <- lengths(list(...))
   if (length(lengths) > 1) {
-    if (any(diff(lengths) != 0))
-      stop2("Incompatibility between dimensions.")
+    ind <- which(diff(lengths) != 0)
+    if (length(ind) > 0) {
+      # https://stackoverflow.com/a/35317968/6103040
+      dots <- match.call(expand.dots = FALSE)$...
+      stop2("Incompatibility between dimensions.\n'%s' and '%s' %s",
+            dots[ind[1]], dots[ind[1] + 1], "should have the same length.")
+    }
   } else {
-    stop2("You should check the lengths of at least two elements.")
+    stop2("You should check the lengths of at least two variables.")
   }
 }
 
