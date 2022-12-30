@@ -6,9 +6,7 @@
 \alias{bigassertr-package}
 \title{bigassertr: Assertion and Message Functions}
 \description{
-Enhanced message functions (cat() / message() / warning() / error()) 
-    using wrappers around sprintf(). Also, multiple assertion functions 
-    (e.g. to check class, length, values, files, arguments, etc.).
+Enhanced message functions (cat() / message() / warning() / error()) using wrappers around sprintf(). Also, multiple assertion functions (e.g. to check class, length, values, files, arguments, etc.).
 }
 \seealso{
 Useful links:

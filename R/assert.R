@@ -28,6 +28,8 @@
 #' - `assert_type()`: checks that values are of a particular type.
 #' - `assert_sorted()`: checks that values are sorted.
 #' - `assert_package()`: checks that a package is installed.
+#' - `assert_df_with_names()`: checks that it is a data frame with some required
+#'   variables names. There can be additional variables as well.
 #'
 #' @param x Usually a vector.
 #' @param f A function.
@@ -41,6 +43,8 @@
 #' @param ext Extension to check (without the dot at the beginning).
 #' @param type Type to check.
 #' @param pkg Name of a package.
+#' @param df A data frame.
+#' @param names Variable names to check.
 #'
 #' @name assert
 #'
@@ -62,6 +66,7 @@
 #' assert_type(1:3, "integer")
 #' assert_sorted(1:3)
 #' assert_package("stats")
+#' assert_df_with_names(iris, c("Sepal.Length", "Sepal.Width"))
 #'
 #' test <- function(...) {
 #'   assert_nodots()
@@ -289,6 +294,23 @@ assert_sorted <- function(x, strict = FALSE)  {
 assert_package <- function(pkg)  {
   if (!requireNamespace(pkg, quietly = TRUE))
     stop2("Please install package '%s'.", pkg)
+}
+
+################################################################################
+
+#' @export
+#' @rdname assert
+assert_df_with_names <- function(df, names) {
+
+  df_varname <- deparse(substitute(df))
+
+  if (!is.data.frame(df))
+    stop2("'%s' is not a data frame.", df_varname)
+
+  for (name in names) {
+    if (is.null(df[[name]]))
+      stop2("'%s' should have element '%s'.", df_varname, name)
+  }
 }
 
 ################################################################################

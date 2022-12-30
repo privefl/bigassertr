@@ -22,6 +22,7 @@
 \alias{assert_type}
 \alias{assert_sorted}
 \alias{assert_package}
+\alias{assert_df_with_names}
 \title{Assertions}
 \usage{
 assert_nona(x)
@@ -63,6 +64,8 @@ assert_type(x, type)
 assert_sorted(x, strict = FALSE)
 
 assert_package(pkg)
+
+assert_df_with_names(df, names)
 }
 \arguments{
 \item{x}{Usually a vector.}
@@ -88,6 +91,10 @@ assert_package(pkg)
 \item{type}{Type to check.}
 
 \item{pkg}{Name of a package.}
+
+\item{df}{A data frame.}
+
+\item{names}{Variable names to check.}
 }
 \description{
 \itemize{
@@ -117,6 +124,8 @@ beware precision errors (e.g. \code{(0.1 + 0.2) != 0.3}).
 \item \code{assert_type()}: checks that values are of a particular type.
 \item \code{assert_sorted()}: checks that values are sorted.
 \item \code{assert_package()}: checks that a package is installed.
+\item \code{assert_df_with_names()}: checks that it is a data frame with some required
+variables names. There can be additional variables as well.
 }
 }
 \examples{
@@ -137,6 +146,7 @@ assert_ext("test.txt", "txt")
 assert_type(1:3, "integer")
 assert_sorted(1:3)
 assert_package("stats")
+assert_df_with_names(iris, c("Sepal.Length", "Sepal.Width"))
 
 test <- function(...) {
   assert_nodots()

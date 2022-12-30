@@ -183,4 +183,13 @@ test_that("assert_package() works", {
                "Please install package 'DOESNOTEXIST'.", fixed = TRUE)
 })
 
+test_that("assert_df_with_names() works", {
+  expect_error(assert_df_with_names(as.matrix(iris), "SPECIES"),
+               "not a data frame")
+  expect_error(assert_df_with_names(iris, "SPECIES"),
+               "should have element 'SPECIES'")
+  expect_null(assert_df_with_names(iris, "Species"))
+  expect_null(assert_df_with_names(iris, sample(colnames(iris))))
+})
+
 ################################################################################
