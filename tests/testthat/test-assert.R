@@ -4,6 +4,11 @@ context("test-assert")
 
 ################################################################################
 
+test_that("assert_not_null() works", {
+  expect_null(assert_not_null(1:3))
+  expect_error(assert_not_null(NULL), "can't be `NULL`.")
+})
+
 test_that("assert_nona() works", {
   expect_null(assert_nona(1:3))
   expect_error(assert_nona(c(1:3, NA)), "You can't have missing values in ")

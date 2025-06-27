@@ -2,6 +2,7 @@
 
 #' Assertions
 #'
+#' - `assert_not_null()`: checks that it is not `NULL`.
 #' - `assert_nona()`: checks that there is no missing value.
 #' - `assert_args()`: checks that `f` is a function and that it has arguments
 #'   called `args.name`.
@@ -49,6 +50,7 @@
 #' @name assert
 #'
 #' @examples
+#' assert_not_null(1)
 #' assert_nona(1:3)
 #' assert_args(assert_nona, "x")
 #' assert_lengths(1:3, 4:6, as.list(1:3))
@@ -75,6 +77,16 @@
 #' test()
 #'
 NULL
+
+################################################################################
+
+#' @export
+#' @rdname assert
+assert_not_null <- function(x) {
+  if (is.null(x))
+    stop2("'%s' can't be `NULL`.", deparse(substitute(x)))
+}
+
 
 ################################################################################
 

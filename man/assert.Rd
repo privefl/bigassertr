@@ -2,6 +2,7 @@
 % Please edit documentation in R/assert.R
 \name{assert}
 \alias{assert}
+\alias{assert_not_null}
 \alias{assert_nona}
 \alias{assert_args}
 \alias{assert_lengths}
@@ -25,6 +26,8 @@
 \alias{assert_df_with_names}
 \title{Assertions}
 \usage{
+assert_not_null(x)
+
 assert_nona(x)
 
 assert_args(f, args.name)
@@ -98,6 +101,7 @@ assert_df_with_names(df, names)
 }
 \description{
 \itemize{
+\item \code{assert_not_null()}: checks that it is not \code{NULL}.
 \item \code{assert_nona()}: checks that there is no missing value.
 \item \code{assert_args()}: checks that \code{f} is a function and that it has arguments
 called \code{args.name}.
@@ -129,6 +133,7 @@ variables names. There can be additional variables as well.
 }
 }
 \examples{
+assert_not_null(1)
 assert_nona(1:3)
 assert_args(assert_nona, "x")
 assert_lengths(1:3, 4:6, as.list(1:3))
