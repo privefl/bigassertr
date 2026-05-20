@@ -21,13 +21,28 @@ message2 <- function(...) message(sprintf(...))
 ################################################################################
 
 #' @rdname printf
+#' @param depth Depth of the function to capture the name from.
+#'   Use `NULL` (default) to omit the function name, `-1` for the direct caller,
+#'   `-2` for the caller's caller (e.g. inside `assert_*` wrappers).
 #' @export
-warning2 <- function(...) warning(sprintf(...), call. = FALSE)
+warning2 <- function(..., depth = NULL) {
+  fun <- if (!is.null(depth)) {
+    call <- sys.call(depth)
+    if (!is.null(call)) paste0("[In ", deparse(call[[1]]), "()] ") else ""
+  } else ""
+  warning(paste0(fun, sprintf(...)), call. = FALSE)
+}
 
 ################################################################################
 
 #' @rdname printf
 #' @export
-stop2 <- function(...) stop(sprintf(...), call. = FALSE)
+stop2 <- function(..., depth = NULL) {
+  fun <- if (!is.null(depth)) {
+    call <- sys.call(depth)
+    if (!is.null(call)) paste0("[In ", deparse(call[[1]]), "()] ") else ""
+  } else ""
+  stop(paste0(fun, sprintf(...)), call. = FALSE)
+}
 
 ################################################################################

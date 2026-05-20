@@ -11,12 +11,16 @@ printf(...)
 
 message2(...)
 
-warning2(...)
+warning2(..., depth = NULL)
 
-stop2(...)
+stop2(..., depth = NULL)
 }
 \arguments{
 \item{...}{Arguments passed on to \link[base:sprintf]{base::sprintf}.}
+
+\item{depth}{Depth of the function to capture the name from.
+Use \code{NULL} (default) to omit the function name, \code{-1} for the direct caller,
+\code{-2} for the caller's caller (e.g. inside \verb{assert_*} wrappers).}
 }
 \description{
 Easy messages

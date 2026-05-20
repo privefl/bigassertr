@@ -1,7 +1,7 @@
 Package: bigassertr
 Title: Assertion and Message Functions
-Version: 0.1.7
-Date: 2025-06-27
+Version: 0.2.0
+Date: 2026-05-18
 Authors@R: 
     person(given = "Florian",
            family = "Privé",
@@ -14,7 +14,7 @@ Description:
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Suggests: 
     testthat,
     covr
